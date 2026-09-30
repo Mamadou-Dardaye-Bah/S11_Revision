@@ -36,6 +36,7 @@
                 <a asp-action="Index" asp-route-storyId="@item.Id" asp-controller="Comments">@item.Comments.Where(x => !x.Hidden).Count() commentaire(s)</a> |
                 <a asp-action="Edit" asp-route-id="@item.Id">Modifier</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                <a asp-controller="StoryTags" asp-action="Create" asp-route-storyId="@item.Id">Ajouter les tags</a>
             </div>
         </div>
     </div>
