@@ -49,7 +49,12 @@ namespace PresseMots.Controllers
         // GET: Tags/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-           _context.Tags.Remove()
+            if (id == null)
+                return NotFound();
+            var tag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (tag == null)
+                return NotFound();
 
             return View(/*..*/);
         }
@@ -59,7 +64,12 @@ namespace PresseMots.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            /*...*/
+            var tag = await _context.Tags.FindAsync(id);
+
+            if (tag != null)
+                _context.Tags.Remove(tag);
+
+            await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
         }
